@@ -9,9 +9,7 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import container.code.data.dto.NotificationRequestDto;
 import container.code.data.dto.SubscriptionRequestDto;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @Service
 public class FCMService {
-    @Value("${app.firebase-configuration-file}")
+    @Value("${firebase.credentials.path}")
     private String firebaseConfig;
     private FirebaseApp firebaseApp;
 
@@ -63,15 +61,14 @@ public class FCMService {
     }
 
     public String sendPnsToTopic(NotificationRequestDto notificationRequestDto) {
-        Message message = Message.builder()
-                //.setToken("AAAAFEfItGM:APA91bFk3TXVtUhkp60jxneP4iPlntuQEFi6EfRBBdKaJT4QBfOW8xUCGEyZidaDU60_6VvE9pUK9ebLPhIWDs2UsIISz4KOxrzV8eO5SIdXgtQwIPSCOQcXjqQHBtaJb_Wt-CJtFeiV")
-                .setTopic(notificationRequestDto.getTarget())
-                .setNotification(new Notification(notificationRequestDto.getTitle(), notificationRequestDto.getBody()))
-                .putData("content", notificationRequestDto.getTitle())
-                .putData("body", notificationRequestDto.getBody())
+        Message.Builder builder = Message.builder();
+        builder.setTopic(notificationRequestDto.getTarget());
+        builder.setNotification(Notification.builder().setTitle(notificationRequestDto.getTitle()).setBody(notificationRequestDto.getBody()).build());
+        builder.putData("content", notificationRequestDto.getTitle());
+        builder.putData("body", notificationRequestDto.getBody());
+        Message message = builder
                 .build();
 
-        String response = null;
         try {
 
             String res = FirebaseMessaging.getInstance().sendAsync(message).get();
@@ -83,6 +80,6 @@ public class FCMService {
             e.printStackTrace();
         }
 
-        return response;
+        return null;
     }
 }
