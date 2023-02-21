@@ -62,7 +62,7 @@ public class FCMService {
 
     public String sendPnsToTopic(NotificationRequestDto notificationRequestDto) {
         Message.Builder builder = Message.builder();
-        builder.setTopic(notificationRequestDto.getTarget());
+        builder.setToken(notificationRequestDto.getTarget());
         builder.setNotification(Notification.builder().setTitle(notificationRequestDto.getTitle()).setBody(notificationRequestDto.getBody()).build());
         builder.putData("content", notificationRequestDto.getTitle());
         builder.putData("body", notificationRequestDto.getBody());
