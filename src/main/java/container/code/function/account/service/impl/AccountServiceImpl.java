@@ -1,7 +1,9 @@
 package container.code.function.account.service.impl;
 
 import container.code.data.entity.Account;
+import container.code.data.entity.Notification;
 import container.code.data.repository.AccountRepository;
+import container.code.data.repository.NotificationRepository;
 import container.code.function.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -19,9 +21,13 @@ import java.util.function.Function;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
     @Override
     public List<Account> getAllAccount() {
         return accountRepository.findAll();
     }
+    @Override
+    public List<Notification>getAllNotification(){return notificationRepository.findAllNotification();}
 
 }
