@@ -35,9 +35,9 @@ public class Job {
     @Column(name = "thumbnail_job_image")
     private String thumbnailJobImage;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(mappedBy = "job",cascade = CascadeType.ALL)
     private List<OrderJob> orderJobs;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(mappedBy = "job",cascade = CascadeType.ALL)
     private List<SkillJob> skillJobs;
 }

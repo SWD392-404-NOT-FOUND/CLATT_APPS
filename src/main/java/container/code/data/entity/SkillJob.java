@@ -21,11 +21,13 @@ public class SkillJob {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "skill_id")
+    @JsonIgnoreProperties(value = { "skillEmployees", "skillJobs" }, allowSetters = true)
     private Skill skill;
 
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "job_id")
+    @JsonIgnoreProperties(value = { "orderJobs", "skillJobs" }, allowSetters = true)
     private Job job;
 }

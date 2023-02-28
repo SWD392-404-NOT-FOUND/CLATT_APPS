@@ -24,9 +24,13 @@ public class Skill {
     @Column(name = "thumbnail_image")
     private String thumbnailImage;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = { "skill", "account" }, allowSetters = true)
     private List<SkillEmployee> skillEmployees;
 
-    @OneToMany(mappedBy = "skill")
+    @JsonIgnoreProperties(value = { "skill", "job" }, allowSetters = true)
+    @OneToMany(mappedBy = "skill",cascade = CascadeType.ALL)
     private List<SkillJob> skillJobs;
+
+
 }
