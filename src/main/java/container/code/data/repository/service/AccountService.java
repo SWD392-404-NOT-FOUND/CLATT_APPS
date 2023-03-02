@@ -1,4 +1,4 @@
-package container.code.function.account.service;
+package container.code.data.repository.service;
 
 import container.code.data.entity.Account;
 import org.springframework.http.ResponseEntity;
