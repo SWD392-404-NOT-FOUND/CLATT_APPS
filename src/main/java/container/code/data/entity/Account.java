@@ -54,7 +54,7 @@ public class Account {
     @Column(name = "available_hire")
     private Byte availableHire;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "account")

@@ -1,5 +1,6 @@
 package container.code.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +20,12 @@ public class District {
 
     @Column(name = "name")
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "province_id")
     private Province province;
 
     @OneToMany(mappedBy = "district")
+    @JsonIgnore
     private List<Address> addresses;
 
 }

@@ -17,14 +17,15 @@ public class Address {
     @Id
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "description")
+    private String description;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "account_id")
     private Account account;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "district_id")
     private District district;
-    @Column(name = "description")
-    private String description;
+
 }
