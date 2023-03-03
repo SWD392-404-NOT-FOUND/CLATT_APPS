@@ -1,5 +1,6 @@
 package container.code.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,13 +8,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
-public class Account {
+public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -55,20 +57,25 @@ public class Account {
     private Byte availableHire;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<Address> addresses;
-
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<HistoryAmount> historyAmounts;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<Notification> notifications;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<EmployeeOrder> employeeOrders;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<SkillEmployee> skillEmployees;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private List<BookingOrder> bookingOrders;
 }
