@@ -1,5 +1,6 @@
 package container.code.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,10 @@ public class Job {
     private String thumbnailJobImage;
 
     @OneToMany(mappedBy = "job")
+    @JsonIgnore
     private List<OrderJob> orderJobs;
 
     @OneToMany(mappedBy = "job")
+    @JsonIgnore
     private List<SkillJob> skillJobs;
 }
