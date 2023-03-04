@@ -34,7 +34,7 @@ public class AddressController {
         }
     }
     @PutMapping("{addressId}")
-    public ResponseEntity updateAddress(@PathVariable("addressId") int addressId , @RequestBody Address address){
+    public ResponseEntity updateAddress(@PathVariable("addressId") int addressId, @RequestBody Address address){
         try{
             address.setId(addressId);
             addressService.updateAddress(address);
