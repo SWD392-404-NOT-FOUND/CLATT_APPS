@@ -9,4 +9,5 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query("SELECT t FROM Account t")
     List<Account> findAll();
+    Account findAccountById(int id);
 }
