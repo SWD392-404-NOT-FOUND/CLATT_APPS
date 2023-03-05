@@ -17,6 +17,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
             "WHERE au.account_id = :accountId AND  t.id = au.address_id " ,nativeQuery = true)
     List<Address> getAddressesByAccount(@Param("accountId") int accountId);
 
-    @Query(value = "SELECT a, a.district.name,a.account.fullname From Address a where a.accountId = ?1",nativeQuery = false)
+    @Query(value = "SELECT a, a.district.name,a.account.fullname, a.account.id, a.district.province.name" +
+            " From Address a where a.accountId = ?1",nativeQuery = false)
     List<Address> findAddressByAccountId(int accountId);
 }

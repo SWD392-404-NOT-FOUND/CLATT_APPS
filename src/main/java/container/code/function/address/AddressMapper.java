@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 public class AddressMapper {
     public AddressResponse toAddressResponse(Address address){
         AddressResponse addressResponse = new AddressResponse();
-        addressResponse.setDescription(address.getDescription());
-        addressResponse.setDistrictName(address.getDistrict().getName());
+        String location = address.getDescription() + ", " + address.getDistrict().getName() + ", " + address.getDistrict().getProvince().getName();
+        addressResponse.setAddress_id(address.getId());
+        addressResponse.setAccount_id(address.getAccount().getId());
         addressResponse.setAccountFullName(address.getAccount().getFullname());
+        addressResponse.setLocation(location);
         return addressResponse;
     }
 }
