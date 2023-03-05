@@ -71,4 +71,7 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<BookingOrder> bookingOrders;
+
+    @OneToMany(mappedBy = "account")
+    private List<Payment> payments;
 }
