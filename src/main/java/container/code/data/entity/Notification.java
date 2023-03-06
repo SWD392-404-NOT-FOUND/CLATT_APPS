@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -24,13 +25,13 @@ public class Notification {
     private String detail;
 
     @Column(name = "timestamp")
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @Column(name = "is_read")
-    private Byte isRead;
+    private boolean isRead;
 
     @Column(name = "is_deleted")
-    private Byte isDeleted;
+    private boolean isDeleted;
 
     @ManyToOne
     @JsonIgnore

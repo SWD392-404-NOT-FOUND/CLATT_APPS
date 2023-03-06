@@ -22,11 +22,11 @@ public class Address {
     @Column(name = "district_id")
     private int districtId;
     @ManyToOne
-    @JsonIgnore
+    @JsonIgnoreProperties("addresses")
     @JoinColumn(name = "account_id",insertable = false, updatable = false)
     private Account account;
     @ManyToOne
-    @JsonIgnore
+    @JsonIgnoreProperties("addresses")
     @JoinColumn(name = "district_id",insertable = false, updatable = false)
     private District district;
     @Column(name = "description")
