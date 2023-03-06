@@ -2,10 +2,8 @@ package container.code.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.List;
@@ -54,6 +52,9 @@ public class Account {
     @Column(name = "available_hire")
     private Byte availableHire;
 
+    @Column(name = "banned")
+    private Boolean banned;
+
     @OneToMany(mappedBy = "account")
     private List<Address> addresses;
 
@@ -67,7 +68,7 @@ public class Account {
     private List<EmployeeOrder> employeeOrders;
 
     @OneToMany(mappedBy = "account")
-    private List<SkillEmployee> skillEmployees;
+    private List<JobEmployee> jobEmployees;
 
     @OneToMany(mappedBy = "account")
     private List<BookingOrder> bookingOrders;

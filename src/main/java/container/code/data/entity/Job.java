@@ -40,7 +40,4 @@ public class Job {
     @JsonIgnore
     private List<OrderJob> orderJobs;
 
-    @OneToMany(mappedBy = "job")
-    @JsonIgnore
-    private List<SkillJob> skillJobs;
 }
