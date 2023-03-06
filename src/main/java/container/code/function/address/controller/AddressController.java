@@ -1,7 +1,7 @@
 package container.code.function.address.controller;
 
 import container.code.data.entity.Address;
-import container.code.function.address.AddressService;
+import container.code.function.address.service.AddressService;
 import container.code.function.address.api.AddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

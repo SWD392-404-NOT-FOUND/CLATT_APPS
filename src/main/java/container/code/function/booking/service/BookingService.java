@@ -1,4 +1,4 @@
-package container.code.function.booking;
+package container.code.function.booking.service;
 
 import container.code.data.entity.BookingOrder;
 import container.code.function.booking.api.BookingResponse;

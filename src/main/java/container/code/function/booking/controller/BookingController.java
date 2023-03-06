@@ -1,7 +1,7 @@
 package container.code.function.booking.controller;
 
 import container.code.data.entity.BookingOrder;
-import container.code.function.booking.BookingService;
+import container.code.function.booking.service.BookingService;
 import container.code.function.booking.api.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

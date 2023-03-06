@@ -10,10 +10,10 @@ public class FeedbackMapper {
         FeedbackResponse feedbackResponse = new FeedbackResponse();
         feedbackResponse.setDetail(feedback.getDetail());
         feedbackResponse.setRate(feedback.getRate());
-        feedbackResponse.setTimestamp(feedback.getTimestamp());
-        feedbackResponse.setUser_id(feedback.getEmployeeOrder().getBookingOrder().getAccount().getId());
-        feedbackResponse.setUserName(feedback.getEmployeeOrder().getBookingOrder().getAccount().getFullname());
-        feedbackResponse.setEmployee_id(feedback.getEmployeeOrder().getAccount().getId());
+//        feedbackResponse.setTimestamp(feedback.getTimestamp());
+//        feedbackResponse.setUser_id(feedback.getEmployeeOrder().getBookingOrder().getAccount().getId());
+//        feedbackResponse.setUserName(feedback.getEmployeeOrder().getBookingOrder().getAccount().getFullname());
+//        feedbackResponse.setEmployee_id(feedback.getEmployeeOrder().getAccount().getId());
         return feedbackResponse;
     }
 }

@@ -67,9 +67,6 @@ public class JobServiceImpl implements JobService {
             if (job.getMeasureUnit() != null) {
                 existJob.setMeasureUnit(job.getMeasureUnit());
             }
-            if (job.getMeasureValue() != null) {
-                existJob.setMeasureValue(job.getMeasureValue());
-            }
             if (job.getName() != null) {
                 existJob.setName(job.getName());
             }

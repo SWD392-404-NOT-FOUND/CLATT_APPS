@@ -1,9 +1,9 @@
-package container.code.function.address.impl;
+package container.code.function.address.service.impl;
 
 import container.code.data.entity.Address;
 import container.code.data.repository.AddressRepository;
 import container.code.function.address.AddressMapper;
-import container.code.function.address.AddressService;
+import container.code.function.address.service.AddressService;
 import container.code.function.address.api.AddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

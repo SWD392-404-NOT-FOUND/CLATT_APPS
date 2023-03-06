@@ -32,14 +32,12 @@ public class JobController {
     @PostMapping(value = "/create-job", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> createJob(@RequestPart(required = true) MultipartFile file,
                                             @RequestParam("name") String name,
-                                            @RequestParam("measure_value") Integer measure_value,
                                             @RequestParam("measure_unit") String measure_unit,
                                             @RequestParam("price") Integer price) {
         try {
             Job job = new Job();
             job.setName(name);
             job.setMeasureUnit(measure_unit);
-            job.setMeasureValue(measure_value);
             job.setPrice(price);
             jobService.addJob(job, file);
             return new ResponseEntity(HttpStatus.CREATED);
@@ -60,7 +58,6 @@ public class JobController {
             job.setId(job_id);
             job.setName(name);
             job.setMeasureUnit(measure_unit);
-            job.setMeasureValue(measure_value);
             job.setPrice(price);
             jobService.updateJob(job, file);
             return new ResponseEntity(HttpStatus.CREATED);
