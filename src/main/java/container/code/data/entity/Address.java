@@ -18,11 +18,11 @@ public class Address {
     @Column(name = "id")
     private Integer id;
     @ManyToOne
-    @JsonIgnore
+    @JsonIgnoreProperties("addresses")
     @JoinColumn(name = "account_id")
     private Account account;
     @ManyToOne
-    @JsonIgnore
+    @JsonIgnoreProperties("addresses")
     @JoinColumn(name = "district_id")
     private District district;
     @Column(name = "description")

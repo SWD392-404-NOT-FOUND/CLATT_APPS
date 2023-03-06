@@ -26,8 +26,8 @@ public class Job {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "measure_value")
-    private Integer measureValue;
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @Column(name = "measure_unit")
     private String measureUnit;
@@ -38,6 +38,4 @@ public class Job {
     @OneToMany(mappedBy = "job")
     private List<OrderJob> orderJobs;
 
-    @OneToMany(mappedBy = "job")
-    private List<SkillJob> skillJobs;
 }
