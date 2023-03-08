@@ -17,6 +17,7 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 //    @Query("SELECT t FROM Account t")
     List<Account> findAll();
+    Account findAccountById(int id);
 
 //    @Query("SELECT t FROM Account t WHERE t.id = ?1")
     Optional<Account> findById(Integer Id);

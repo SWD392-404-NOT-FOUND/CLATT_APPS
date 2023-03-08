@@ -79,4 +79,6 @@ public class Account {
     @OneToMany(mappedBy = "employee")
     @JsonIgnoreProperties("account")
     private List<BookingOrder> bookedOrders;
+    @OneToMany(mappedBy = "account")
+    private List<Payment> payments;
 }
