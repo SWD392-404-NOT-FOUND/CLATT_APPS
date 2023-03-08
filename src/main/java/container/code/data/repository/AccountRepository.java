@@ -5,8 +5,10 @@ import container.code.data.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,8 +38,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Account findByEmailAndPassword(String Email, String password);
     @Modifying
-    @Query("Update Account t SET t.isLocked = TRUE WHERE t.id = ?1")
-    void banAccount(Integer id);
+    @Transactional
+    @Query(value = "Update Account t SET t.isLocked = TRUE WHERE t.id = :account_id")
+    void banAccount(@Param("account_id") Integer id);
 
     @Query("SELECT t FROM Account t WHERE t.id NOT IN " +
             "(SELECT f.id FROM BookingOrder f WHERE YEAR(f.workDate) = YEAR(?1) and MONTH(f.workDate) = MONTH(?1) and DAY(f.workDate) = DAY(?1))")

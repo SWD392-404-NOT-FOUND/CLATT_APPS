@@ -1,5 +1,6 @@
 package container.code.function.district.controller;
 
+import container.code.data.dto.ResponseObject;
 import container.code.function.district.DistrictService;
 import container.code.function.district.api.DistrictResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class DistrictController {
     private DistrictService districtService;
 
     @GetMapping("/{province_id}")
-    public ResponseEntity<List<DistrictResponse>> getAll(@PathVariable("province_id") int province_id){
-        return new ResponseEntity<List<DistrictResponse>>(districtService.getAllDistrict(province_id), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getAll(@PathVariable("province_id") int province_id) {
+        return districtService.getAllDistrict(province_id);
     }
 }

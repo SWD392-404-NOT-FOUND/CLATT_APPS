@@ -1,20 +1,22 @@
 package container.code.function.job;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.Job;
 import container.code.function.job.api.JobResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface JobService {
-    List<JobResponse> getAllJob();
+    ResponseEntity<ResponseObject> getAllJob();
 
-    JobResponse getJob(Integer id);
+    ResponseEntity<ResponseObject> getJob(Integer id);
 
-    void addJob(Job job, MultipartFile file) throws IOException;
+    ResponseEntity<ResponseObject> addJob(Job job, MultipartFile file) throws IOException;
 
-    void updateJob(Job job, MultipartFile file) throws IOException;
+    ResponseEntity<ResponseObject> updateJob(Job job, MultipartFile file) throws IOException;
 
-    void deleteJob(Job job);
+    ResponseEntity<ResponseObject> deleteJob(Job job);
 }

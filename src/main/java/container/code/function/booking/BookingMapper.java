@@ -12,18 +12,18 @@ public class BookingMapper {
         BookingResponse bookingResponse = new BookingResponse();
 
         bookingResponse.setId((Integer) object.get("id"));
-        bookingResponse.setUser_id((Integer) object.get("user_id"));
-        bookingResponse.setUser_name((String) object.get("user_name"));
-        bookingResponse.setEmp_id((Integer) object.get("emp_id"));
-        bookingResponse.setEmp_name((String) object.get("emp_name"));
+        bookingResponse.setUserId((Integer) object.get("user_id"));
+        bookingResponse.setUserName((String) object.get("user_name"));
+        bookingResponse.setEmpId((Integer) object.get("emp_id"));
+        bookingResponse.setEmpName((String) object.get("emp_name"));
         bookingResponse.setStatus((String) object.get("status"));
         bookingResponse.setWorkTime((Integer) object.get("workTime"));
         bookingResponse.setTimestamp((Date) object.get("timestamp"));
         bookingResponse.setLocation((String) object.get("location"));
-        bookingResponse.setJob_id((Integer) object.get("job_id"));
-        bookingResponse.setJob_name((String) object.get("job_name"));
+        bookingResponse.setJobId((Integer) object.get("job_id"));
+        bookingResponse.setJobName((String) object.get("job_name"));
         bookingResponse.setDescription((String) object.get("description"));
-
+        bookingResponse.setPrice(2000);
         return bookingResponse;
     }
 }

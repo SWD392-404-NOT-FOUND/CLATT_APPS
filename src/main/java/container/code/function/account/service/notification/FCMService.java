@@ -71,7 +71,7 @@ public class FCMService {
 
         try {
 
-            String res = FirebaseMessaging.getInstance().sendAsync(message).get();
+            String res = FirebaseMessaging.getInstance(firebaseApp).sendAsync(message).get();
             log.info("Res = {}",res);
             log.info(notificationRequestDto.toString());
         } catch (ExecutionException e) {

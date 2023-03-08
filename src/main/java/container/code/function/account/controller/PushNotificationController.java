@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/notification")
 @RestController
-public class NotificationController {
+public class PushNotificationController {
     @Autowired
     private FCMService fcmService;
     @PostMapping("/subscribe")

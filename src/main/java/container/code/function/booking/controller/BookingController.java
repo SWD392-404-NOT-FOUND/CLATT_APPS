@@ -1,5 +1,6 @@
 package container.code.function.booking.controller;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.BookingOrder;
 import container.code.function.booking.service.BookingService;
 import container.code.function.booking.api.BookingResponse;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,44 +21,30 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/get-bookings")
-    public List<BookingResponse> getBooking(@RequestParam(required = false) String status,
-                                            @RequestParam(required = false) Integer user_id,
-                                            @RequestParam(required = false) Integer employee_id,
-                                            @RequestParam(required = false) Integer booking_id) {
+    public ResponseEntity<ResponseObject> getBooking(@RequestParam(required = false) String status,
+                                                     @RequestParam(required = false) Integer user_id,
+                                                     @RequestParam(required = false) Integer employee_id,
+                                                     @RequestParam(required = false) Integer booking_id) {
         return bookingService.getBookingOrder(status, user_id, employee_id, booking_id);
     }
 
     @PostMapping("/create-booking")
-    public ResponseEntity<String> createBooking(@RequestParam Integer userId, @RequestParam Integer employeeId,
-                                                @RequestParam Integer jobId, @RequestParam Date timestamp,
-                                                @RequestParam Integer address_id, @RequestParam String status,
-                                                @RequestParam String description, @RequestParam Integer workTime) {
-        try {
-            bookingService.addBookingOrder(userId, employeeId, jobId, timestamp, address_id, status, description, workTime);
-            return new ResponseEntity(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseObject> createBooking(@RequestParam Integer userId, @RequestParam Integer employeeId,
+                                                        @RequestParam Integer jobId, @RequestParam LocalDateTime timestamp,
+                                                        @RequestParam Integer address_id, @RequestParam String status,
+                                                        @RequestParam String description, @RequestParam Integer workTime) {
+        return bookingService.addBookingOrder(userId, employeeId, jobId, timestamp, address_id, status, description, workTime);
     }
 
     @PutMapping("/update/{booking_id}")
-    public ResponseEntity updateBooking(@PathVariable("booking_id") int booking_id,
-                                        @RequestBody(required = false) BookingOrder bookingOrder) {
-        try {
-            bookingService.updateBookingOrder(booking_id, bookingOrder);
-            return new ResponseEntity(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseObject> updateBooking(@PathVariable("booking_id") int booking_id,
+                                                        @RequestBody(required = false) BookingOrder bookingOrder) {
+        return bookingService.updateBookingOrder(booking_id, bookingOrder);
     }
 
     @DeleteMapping("/delete/{booking_id}")
-    public ResponseEntity deleteBooking(@PathVariable("booking_id") int booking_id) {
-        try {
-            bookingService.deleteBookingOrder(booking_id);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseObject> deleteBooking(@PathVariable("booking_id") int booking_id) {
+        return bookingService.deleteBookingOrder(booking_id);
+
     }
 }

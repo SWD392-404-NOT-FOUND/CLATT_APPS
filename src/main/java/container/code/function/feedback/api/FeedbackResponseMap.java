@@ -7,7 +7,7 @@ import java.sql.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FeedbackResponse {
+public class FeedbackResponseMap {
     private Integer id;
     private String detail;
     private Integer rate;
