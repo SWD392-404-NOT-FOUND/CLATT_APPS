@@ -1,7 +1,8 @@
 package container.code.function.address.controller;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.Address;
-import container.code.function.address.AddressService;
+import container.code.function.address.service.AddressService;
 import container.code.function.address.api.AddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,31 +17,25 @@ import java.util.List;
 public class AddressController {
     @Autowired
     private AddressService addressService;
+
     @GetMapping("all")
-    public ResponseEntity<List<AddressResponse>> getAllAddresses(){
-        return new ResponseEntity<List<AddressResponse>>(addressService.getAllAddress(),HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getAllAddresses() {
+        return addressService.getAllAddress();
     }
+
     @GetMapping("account/{accountId}")
-    public ResponseEntity<List<AddressResponse>> getAddressByAccountId(@PathVariable("accountId") int accountId){
-        return new ResponseEntity<List<AddressResponse>>(addressService.findAddressByAccountId(accountId),HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getAddressByAccountId(@PathVariable("accountId") int accountId) {
+        return addressService.findAddressByAccountId(accountId);
     }
+
     @PostMapping
-    public ResponseEntity createAddress(@RequestBody Address address){
-        try{
-            addressService.addAddress(address);
-            return new ResponseEntity(HttpStatus.CREATED);
-        }catch (Exception ex){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseObject> createAddress(@RequestBody Address address) {
+        return addressService.addAddress(address);
     }
+
     @PutMapping("{addressId}")
-    public ResponseEntity updateAddress(@PathVariable("addressId") int addressId, @RequestBody Address address){
-        try{
-            address.setId(addressId);
-            addressService.updateAddress(address);
-            return new ResponseEntity(HttpStatus.CREATED);
-        }catch (Exception ex){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ResponseObject> updateAddress(@PathVariable("addressId") int addressId, @RequestBody Address address) {
+        address.setId(addressId);
+        return addressService.updateAddress(address);
     }
 }

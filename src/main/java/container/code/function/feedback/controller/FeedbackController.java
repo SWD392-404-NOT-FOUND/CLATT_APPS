@@ -1,8 +1,10 @@
 package container.code.function.feedback.controller;
 
 import container.code.data.dto.ResponseObject;
+import container.code.data.entity.Feedback;
 import container.code.function.feedback.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,41 +33,37 @@ public class FeedbackController {
     }
 
     @PostMapping("/get-feedbacks")
-    public List<FeedbackResponse> getFeedback(@RequestParam int employee_id, @RequestParam int job_id, @RequestParam(required = false) Integer rate) {
+    public ResponseEntity<ResponseObject> getFeedback(@RequestParam int employee_id, @RequestParam int job_id, @RequestParam(required = false) Integer rate) {
         return feedbackService.getFeedbacks(employee_id, job_id, rate);
     }
+
     @PostMapping("/create-feedback/{id}")
-    public ResponseEntity<String> createFeedback(@PathVariable("order_id") Integer orderId, @RequestBody Feedback feedback) {
+    public ResponseEntity<ResponseObject> createFeedback(@PathVariable("order_id") Integer orderId, @RequestBody Feedback feedback) {
         try {
             feedback.setId(null);
-            boolean check = feedbackService.addFeedback(orderId, feedback);
-            if (check) {
-                return new ResponseEntity(HttpStatus.CREATED);
-            } else {
-                return ResponseEntity.ok().body("Can not add feedback");
-            }
+            return feedbackService.addFeedback(orderId, feedback);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("/{feedbackId}")
-    public ResponseEntity updateFeedback(@PathVariable("feedbackId") int feedbackId, @RequestBody Feedback feedback) {
+    public ResponseEntity<ResponseObject> updateFeedback(@PathVariable("feedbackId") int feedbackId, @RequestBody Feedback feedback) {
         try {
             feedback.setId(feedbackId);
-            feedbackService.updateFeedback(feedback);
-            return new ResponseEntity(HttpStatus.CREATED);
+            return feedbackService.updateFeedback(feedback);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @DeleteMapping("/{feedbackId}")
     public ResponseEntity deleteFeedback(@PathVariable("feedbackId") int feedbackId) {
         try {
 
             Feedback feedback = new Feedback();
             feedback.setId(feedbackId);
-            feedbackService.deleteFeedback(feedback);
-            return new ResponseEntity(HttpStatus.OK);
+            return feedbackService.deleteFeedback(feedback);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

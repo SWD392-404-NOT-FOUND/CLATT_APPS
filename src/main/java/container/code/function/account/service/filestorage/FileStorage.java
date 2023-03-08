@@ -49,9 +49,9 @@ public class FileStorage {
         String url = "";
         try {
             String fileName = UUID.randomUUID().toString();
-            StorageClient storageClient = StorageClient.getInstance();
+            StorageClient storageClient = StorageClient.getInstance(firebaseApp);
 
-            storageClient.bucket().create(fileName, file.getBytes(), "image/jpg");
+            storageClient.bucket(storageBucket).create(fileName, file.getBytes(), "image/jpg");
             url = String.format(tmpUrl, fileName);
         } catch (IOException e) {
             log.error("Upload File Error", e);

@@ -1,5 +1,6 @@
 package container.code.function.job.controller;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.Job;
 import container.code.function.job.JobService;
 import container.code.function.job.api.JobResponse;
@@ -20,62 +21,55 @@ public class JobController {
     private JobService jobService;
 
     @PostMapping("/get-jobs")
-    public List<JobResponse> getJobs() {
+    public ResponseEntity<ResponseObject> getJobs() {
         return jobService.getAllJob();
     }
 
-    @PostMapping("/get-job")
-    public JobResponse getJob(@PathVariable("job_id") int job_id) {
+    @PostMapping("/get-job/{job_id}")
+    public ResponseEntity<ResponseObject> getJob(@PathVariable("job_id") int job_id) {
         return jobService.getJob(job_id);
     }
 
     @PostMapping(value = "/create-job", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> createJob(@RequestPart(required = true) MultipartFile file,
-                                            @RequestParam("name") String name,
-                                            @RequestParam("measure_value") Integer measure_value,
-                                            @RequestParam("measure_unit") String measure_unit,
-                                            @RequestParam("price") Integer price) {
+    public ResponseEntity<ResponseObject> createJob(@RequestPart(required = true) MultipartFile file,
+                                                    @RequestParam("name") String name,
+                                                    @RequestParam("measure_unit") String measure_unit,
+                                                    @RequestParam("price") Integer price) {
         try {
             Job job = new Job();
             job.setName(name);
             job.setMeasureUnit(measure_unit);
-            job.setMeasureValue(measure_value);
             job.setPrice(price);
-            jobService.addJob(job, file);
-            return new ResponseEntity(HttpStatus.CREATED);
+            return jobService.addJob(job, file);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    //error
     @PutMapping(value = "/{job_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity updateJob(@RequestPart(required = false) MultipartFile file, @PathVariable("job_id") Integer job_id,
-                                    @RequestParam(required = false, value = "name") String name,
-                                    @RequestParam(required = false, value = "measure_value") Integer measure_value,
-                                    @RequestParam(required = false, value = "measure_unit") String measure_unit,
-                                    @RequestParam(required = false, value = "price") Integer price) {
+    public ResponseEntity<ResponseObject> updateJob(@RequestPart(required = false) MultipartFile file, @PathVariable("job_id") Integer job_id,
+                                                    @RequestParam(required = false, value = "name") String name,
+                                                    @RequestParam(required = false, value = "measure_value") Integer measure_value,
+                                                    @RequestParam(required = false, value = "measure_unit") String measure_unit,
+                                                    @RequestParam(required = false, value = "price") Integer price) {
         try {
             Job job = new Job();
             job.setId(job_id);
             job.setName(name);
             job.setMeasureUnit(measure_unit);
-            job.setMeasureValue(measure_value);
             job.setPrice(price);
-            jobService.updateJob(job, file);
-            return new ResponseEntity(HttpStatus.CREATED);
+            return jobService.updateJob(job, file);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{job_id}")
-    public ResponseEntity deleteJob(@PathVariable("job_id") int job_id) {
+    public ResponseEntity<ResponseObject> deleteJob(@PathVariable("job_id") int job_id) {
         try {
             Job job = new Job();
             job.setId(job_id);
-            jobService.deleteJob(job);
-            return new ResponseEntity(HttpStatus.OK);
+            return jobService.deleteJob(job);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

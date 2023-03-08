@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BookingOrderRepository extends JpaRepository<BookingOrder, Integer> {
@@ -32,19 +34,18 @@ public interface BookingOrderRepository extends JpaRepository<BookingOrder, Inte
 
     @Query(value =
     "SELECT bo.id as id, " +
-            "a.id as user_id, a.fullname as user_name, emp.id as emp_id, emp.fullname as emp_name, " +
-            "bo.status as status, bo.workTime as workTime, bo.timestamp as timestamp, bo.location as location, " +
+            "ren.id as user_id, ren.fullname as user_name, e.id as emp_id, e.fullname as emp_name, " +
+            "bo.status as status, bo.workHour as workTime, bo.timestamp as timestamp, bo.location as location, " +
             "j.id as job_id, j.name as job_name, bo.description as description " +
     "FROM BookingOrder bo " +
-            "INNER JOIN bo.account a " +
+            "INNER JOIN bo.employee e " +
+            "INNER JOIN bo.renter ren " +
             "INNER JOIN bo.orderJobs oj " +
-            "INNER JOIN bo.employeeOrders eo " +
-            "INNER JOIN eo.account emp " +
             "INNER JOIN oj.job j " +
     "WHERE (:status IS NULL OR bo.status = :status) " +
             "AND (:bookingId IS NULL OR bo.id = :bookingId)" +
-            "AND (:userId IS NULL OR a.id = :userId) " +
-            "AND (:employeeId IS NULL OR emp.id = :employeeId)", nativeQuery = false)
+            "AND (:userId IS NULL OR ren.id = :userId) " +
+            "AND (:employeeId IS NULL OR ren.id = :employeeId)", nativeQuery = false)
     List<Map<String, Object>> findAllByStatusId(@Param("status") String status, @Param("userId") Integer userId,
                                                 @Param("employeeId") Integer employeeId, @Param("bookingId") Integer bookingId);
 }

@@ -10,7 +10,6 @@ public class JobResponse {
     private String job_name;
     private Integer price;
     private String thumbnail_image;
-    private Integer measure_value;
     private String measure_unit;
 
 }
