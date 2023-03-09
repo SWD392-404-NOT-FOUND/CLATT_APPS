@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
 @RequestMapping("/file-storage")
 public class FileUploadController {
     @Autowired

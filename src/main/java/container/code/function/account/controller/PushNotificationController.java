@@ -4,13 +4,11 @@ import container.code.data.dto.NotificationRequestDto;
 import container.code.data.dto.SubscriptionRequestDto;
 import container.code.function.account.service.notification.FCMService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/notification")
 @RestController
+@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
 public class PushNotificationController {
     @Autowired
     private FCMService fcmService;

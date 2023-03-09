@@ -7,9 +7,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JobResponse {
     private Integer id;
-    private String job_name;
+    private String jobName;
     private Integer price;
-    private String thumbnail_image;
-    private String measure_unit;
+    private String thumbnailImage;
+    private String measureUnit;
 
 }

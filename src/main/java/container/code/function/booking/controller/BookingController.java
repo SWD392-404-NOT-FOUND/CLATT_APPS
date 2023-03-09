@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
 @RequestMapping(value = "/booking")
 public class BookingController {
     @Autowired
@@ -30,10 +30,11 @@ public class BookingController {
 
     @PostMapping("/create-booking")
     public ResponseEntity<ResponseObject> createBooking(@RequestParam Integer userId, @RequestParam Integer employeeId,
-                                                        @RequestParam Integer jobId, @RequestParam LocalDateTime timestamp,
+                                                        @RequestParam Integer jobId, @RequestParam String timestamp,
                                                         @RequestParam Integer address_id, @RequestParam String status,
                                                         @RequestParam String description, @RequestParam Integer workTime) {
-        return bookingService.addBookingOrder(userId, employeeId, jobId, timestamp, address_id, status, description, workTime);
+        LocalDateTime dateTime = LocalDateTime.parse(timestamp);
+        return bookingService.addBookingOrder(userId, employeeId, jobId, dateTime, address_id, status, description, workTime);
     }
 
     @PutMapping("/update/{booking_id}")

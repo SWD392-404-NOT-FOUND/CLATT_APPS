@@ -1,6 +1,7 @@
 package container.code.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -63,6 +64,10 @@ public class Account {
     @OneToMany(mappedBy = "account")
     @JsonIgnoreProperties("account")
     private List<Address> addresses;
+
+    @OneToMany(mappedBy = "account")
+    @JsonIgnoreProperties("account")
+    private List<EmployeeJob> employeeJobs;
 
     @OneToMany(mappedBy = "account")
     @JsonIgnoreProperties("account")

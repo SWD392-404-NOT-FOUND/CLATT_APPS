@@ -2,7 +2,6 @@ package container.code.function.job;
 
 import container.code.data.dto.ResponseObject;
 import container.code.data.entity.Job;
-import container.code.function.job.api.JobResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 

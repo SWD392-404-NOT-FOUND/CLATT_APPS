@@ -10,10 +10,10 @@ public class JobMapper {
     public JobResponse toJobResponse(Job job) {
         JobResponse jobResponse = new JobResponse();
         jobResponse.setId(job.getId());
-        jobResponse.setJob_name(job.getName());
+        jobResponse.setJobName(job.getName());
         jobResponse.setPrice(job.getPrice());
-        jobResponse.setMeasure_unit(job.getMeasureUnit());
-        jobResponse.setThumbnail_image(job.getThumbnailJobImage());
+        jobResponse.setMeasureUnit(job.getMeasureUnit());
+        jobResponse.setThumbnailImage(job.getThumbnailJobImage());
         return jobResponse;
     }
 }

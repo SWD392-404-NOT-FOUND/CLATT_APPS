@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
 @RequestMapping(value = "/account")
 public class AccountController {
     @Autowired
