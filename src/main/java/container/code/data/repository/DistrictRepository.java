@@ -11,6 +11,6 @@ import java.util.List;
 public interface DistrictRepository extends JpaRepository<District, Integer> {
     @Query(value = "SELECT d "+
             "FROM District d  LEFT JOIN d.province pr " +
-            "WHERE pr.id = :province_id ")
+            "WHERE :province_id IS NULL OR pr.id = :province_id ")
     List<District> findAllByProvinceId(@Param("province_id") Integer provinceId);
 }
