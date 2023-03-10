@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
+@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
 @RequestMapping("/file-storage")
 public class FileUploadController {
     @Autowired

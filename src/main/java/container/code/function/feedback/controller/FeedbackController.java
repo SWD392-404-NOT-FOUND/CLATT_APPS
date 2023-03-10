@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
+@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
 @RequestMapping("/feedback")
 public class FeedbackController {
 

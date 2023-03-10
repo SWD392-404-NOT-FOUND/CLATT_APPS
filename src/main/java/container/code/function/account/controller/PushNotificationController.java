@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/notification")
 @RestController
-@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
+@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
 public class PushNotificationController {
     @Autowired
     private FCMService fcmService;

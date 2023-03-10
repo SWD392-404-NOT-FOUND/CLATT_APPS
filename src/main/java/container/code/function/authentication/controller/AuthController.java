@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3030", allowCredentials = "true")
+@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
 @RequestMapping("/login")
 public class AuthController {
     private FirebaseAuth firebaseAuth;
