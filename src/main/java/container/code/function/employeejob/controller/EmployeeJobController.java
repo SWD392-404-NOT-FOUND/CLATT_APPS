@@ -7,6 +7,7 @@ import container.code.function.feedback.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class EmployeeJobController {
     @Autowired
     private EmployeeJobService employeeJobService;
     @GetMapping("/{jobId}")
+    @PreAuthorize("hasAnyAuthority('admin', 'renter', 'employee')")
     public ResponseEntity<ResponseObject> getWorker(@PathVariable("jobId") int jobId) {
         try {
             return employeeJobService.getWorkerByJobId(jobId);

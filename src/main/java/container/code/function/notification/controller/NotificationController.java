@@ -19,7 +19,7 @@ public class NotificationController {
     @PreAuthorize("hasAnyAuthority('admin', 'renter', 'employee')")
     public ResponseEntity<ResponseObject> getNotificationDetail(
             @RequestParam(name = "account_id") Integer accountId,
-            @RequestParam(name = "notification_id") Integer notificationId) {
+            @RequestParam(name = "notification_id", required = false) Integer notificationId) {
         return notificationService.getNotificationDetail(accountId, notificationId);
     }
 

@@ -23,6 +23,8 @@ public class Notification {
 
     @Column(name = "detail")
     private String detail;
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "timestamp")
     private LocalDateTime timestamp;
