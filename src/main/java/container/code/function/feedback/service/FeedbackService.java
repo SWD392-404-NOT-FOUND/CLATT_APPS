@@ -11,14 +11,16 @@ public interface FeedbackService {
 
     ResponseEntity<ResponseObject> getFeedback(Integer id);
 
+    ResponseEntity<ResponseObject> getFeedbackCount();
+
     ResponseEntity<ResponseObject> getFeedbackWithRate(Integer id, Integer rate);
 
 //    List<FeedbackResponse> getFeedbacks(int employee_id, int job_id, Integer rate);
-//
-//    boolean addFeedback(Integer id, Feedback feedback) throws IllegalAccessException;
-//
-//    void updateFeedback(Feedback feedback);
-//
+
+    boolean addFeedback(Integer id, Feedback feedback) throws IllegalAccessException;
+
+    void updateFeedback(Feedback feedback);
+
 //    void deleteFeedback(Feedback feedback);
 
 }

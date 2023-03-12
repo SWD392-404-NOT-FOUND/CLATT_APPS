@@ -22,6 +22,12 @@ public class FeedbackController {
         return feedbackService.getFeedback(id);
     }
 
+    @GetMapping("getFeedbackCount")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<ResponseObject> getFeedbackCount() {
+        return feedbackService.getFeedbackCount();
+    }
+
     @GetMapping("getFeedbackWithRate")
     @PreAuthorize("hasAnyAuthority('admin','renter','employee')")
     public ResponseEntity<ResponseObject> getFeedbackWithRate(

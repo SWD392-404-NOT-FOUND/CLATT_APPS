@@ -13,7 +13,6 @@ public class JobMapper {
         jobResponse.setJob_name(job.getName());
         jobResponse.setPrice(job.getPrice());
         jobResponse.setMeasure_unit(job.getMeasureUnit());
-        jobResponse.setMeasure_value(job.getMeasureValue());
         jobResponse.setThumbnail_image(job.getThumbnailJobImage());
         return jobResponse;
     }

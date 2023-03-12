@@ -20,4 +20,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Query(value = "SELECT a, a.district.name,a.account.fullname, a.account.id, a.district.province.name" +
             " From Address a where a.accountId = ?1",nativeQuery = false)
     List<Address> findAddressByAccountId(int accountId);
+
+    @Query("SELECT t FROM Address t WHERE t.id = ?1")
+    Address findAddressById(Integer id);
 }

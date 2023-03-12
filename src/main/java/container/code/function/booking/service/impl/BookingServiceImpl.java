@@ -1,17 +1,25 @@
 package container.code.function.booking.service.impl;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.*;
 import container.code.data.repository.*;
 import container.code.function.booking.BookingMapper;
+import container.code.function.booking.api.AddBookingForm;
+import container.code.function.booking.api.CountInfoDTO;
 import container.code.function.booking.service.BookingService;
 import container.code.function.booking.api.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,11 +29,15 @@ public class BookingServiceImpl implements BookingService {
     BookingOrderRepository bookingOrderRepository;
 
     @Autowired
-    EmployeeOrderRepository employeeOrderRepository;
-    @Autowired
     OrderJobRepository orderJobRepository;
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    FeedbackRepository feedbackRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
     @Autowired
     JobRepository jobRepository;
     @Autowired
@@ -34,10 +46,7 @@ public class BookingServiceImpl implements BookingService {
         BookingOrder existBooking = bookingOrderRepository.findById(id).orElseThrow(() -> new NotFoundException("Booking not found"));
         return existBooking;
     }
-    private EmployeeOrder findEmpOrder(Integer emp_id) {
-        EmployeeOrder existEmpOrder = employeeOrderRepository.findById(emp_id).orElseThrow(() -> new NotFoundException("EmpOrder not found"));
-        return existEmpOrder;
-    }
+
     private OrderJob findOrderJob(Integer orderJob_id) {
         OrderJob existOrderJob = orderJobRepository.findById(orderJob_id).orElseThrow(() -> new NotFoundException("OrderJob not found"));
         return existOrderJob;
@@ -52,29 +61,22 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void addBookingOrder(Integer userId, Integer employeeId, Integer jobId, Date timestamp,
+    public void addBookingOrder(Integer renterId, Integer employeeId, Integer jobId, LocalDateTime timestamp,
                                 Integer address_id, String status, String description, Integer workTime) {
         BookingOrder bookingOrder = new BookingOrder();
-        Account accountUser = findAccount(userId);
+        Account renter = findAccount(renterId);
+        Account employee = findAccount(employeeId);
+        Address address = addressRepository.findAddressById(address_id);
 
-        //Get Location
-        //Not yet
-
-        bookingOrder.setWorkTime(workTime);
-        bookingOrder.setAccount(accountUser);
+        bookingOrder.setWorkHour(workTime);
+        bookingOrder.setRenter(renter);
+        bookingOrder.setEmployee(employee);
         bookingOrder.setStatus(status);
         bookingOrder.setTimestamp(timestamp);
         bookingOrder.setDescription(description);
-        bookingOrder.setLocation("903 Đường D1 Khu Công Nghệ Cao, Thành phố Thủ Đức, Thành Phố Hồ Chí Minh");
+        bookingOrder.setLocation(address.getDescription() + ", " + address.getDistrict().getName() + ", " + address.getDistrict().getProvince());
         BookingOrder saveBooking = bookingOrderRepository.save(bookingOrder);
-
-        Account accountEmp = findAccount(employeeId);
         Job job = findJob(jobId);
-
-        EmployeeOrder employeeOrder = new EmployeeOrder();
-        employeeOrder.setAccount(accountEmp);
-        employeeOrder.setBookingOrder(saveBooking);
-        employeeOrderRepository.save(employeeOrder);
 
         OrderJob orderJob = new OrderJob();
         orderJob.setBookingOrder(saveBooking);
@@ -87,7 +89,7 @@ public class BookingServiceImpl implements BookingService {
     public void updateBookingOrder(Integer bookingOrderId, BookingOrder bookingOrder) {
         BookingOrder existBookingOrder = findBooking(bookingOrderId);
         existBookingOrder.setStatus(bookingOrder.getStatus());
-        existBookingOrder.setWorkTime(bookingOrder.getWorkTime());
+//        existBookingOrder.setWorkTime(bookingOrder.getWorkTime());
         existBookingOrder.setDescription(bookingOrder.getDescription());
         bookingOrderRepository.save(existBookingOrder);
     }
@@ -106,4 +108,56 @@ public class BookingServiceImpl implements BookingService {
                 .stream().map(bookingMapper::toBookingResponse).collect(Collectors.toList());
         return bookingResponses;
     }
+
+    @Override
+    public ResponseEntity<ResponseObject> getBookingOrderCount() {
+        CountInfoDTO counter = new CountInfoDTO();
+        try {
+            counter.setUserCount(accountRepository.countNotAdmin());
+            counter.setFeedbackCount(feedbackRepository.count());
+            counter.setConfirmedOrderCount(bookingOrderRepository.countWithStatus("confirmed"));
+            counter.setFinishedOrderCount(bookingOrderRepository.countWithStatus("finished"));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), null, counter));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur", null));
+        }
+    }
+
+//    @Override
+//    public ResponseEntity<ResponseObject> createBooking(AddBookingForm form) {
+//        try {
+//            BookingOrder order = new BookingOrder();
+//            Optional<Account> employee = accountRepository.findById(form.getEmployeeId());
+//            Optional<Account> renter = accountRepository.findById(form.getEmployeeId());
+//
+//            order.setEmployee(employee.get());
+//            order.setRenter(renter.get());
+//            order.setStatus("");
+//
+//            private Integer workHour;
+//
+//            private String location;
+//
+//            private String description;
+//
+//            private LocalDateTime workDate;
+//
+//            private LocalDateTime timestamp;
+//
+//            private List<Integer> jobsId;
+//
+//
+//            List<Job> listJobs = new ArrayList<>();
+//            for (Integer id : form.getJobsId()) {
+//                Optional<Job> job = jobRepository.findById(id);
+//                if (job.isPresent()) {
+//                    OrderJob orderJob = new OrderJob();
+//
+//                }
+//            }
+//            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), "Create order successfully!", null));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur", null));
+//        }
+//    }
 }

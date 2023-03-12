@@ -1,6 +1,9 @@
 package container.code.function.notification.controller;
 
+import container.code.data.dto.NotificationRequestDto;
 import container.code.data.dto.ResponseObject;
+import container.code.data.dto.SubscriptionRequestDto;
+import container.code.function.notification.service.FCMService;
 import container.code.function.notification.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +31,21 @@ public class NotificationController {
     public ResponseEntity<ResponseObject> getAllNotifications(
             @RequestParam(name = "account_id") Integer accountId) {
         return notificationService.getAllMyNotificationsById(accountId);
+    }
+
+    @Autowired
+    private FCMService fcmService;
+    @PostMapping("/subscribe")
+    public void subscribeToTopic(@RequestBody SubscriptionRequestDto subscriptionRequestDto) {
+        fcmService.subscribeToTopic(subscriptionRequestDto);
+    }
+
+    @PostMapping("/unsubscribe")
+    public void unsubscribeFromTopic(SubscriptionRequestDto subscriptionRequestDto) {
+        fcmService.unsubscribeFromTopic(subscriptionRequestDto);
+    }
+    @PostMapping("/topic")
+    public String sendPnsToTopic(@RequestBody NotificationRequestDto notificationRequestDto) {
+        return fcmService.sendPnsToTopic(notificationRequestDto);
     }
 }

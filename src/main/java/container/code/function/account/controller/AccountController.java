@@ -24,19 +24,19 @@ public class AccountController {
     private AccountService accountService;
     @GetMapping("/getAllAccount")
     @PreAuthorize("hasAnyAuthority('admin','renter')")
-    public List<Account> getAllAccount() {
+    public ResponseEntity<ResponseObject> getAllAccount() {
         return accountService.getAllAccount();
     }
 
     @GetMapping("/getAccountById")
     @PreAuthorize("hasAuthority('admin')")
-    public Optional<Account> getAccountById(
+    public ResponseEntity<ResponseObject> getAccountById(
             @Parameter(description = "Enter account Id") @RequestParam(name = "id") @Min(value = 2, message = "Id must be equal or greater than 1") Integer Id
     ) { return accountService.getAccountById(Id);}
 
     @GetMapping("/getAccountByRole")
     @PreAuthorize("hasAuthority('admin')")
-    public List<Account> getAccountByRole(
+    public ResponseEntity<ResponseObject> getAccountByRole(
             @Parameter(description = "Enter account role") @RequestParam(name = "role") String role)
     { return accountService.getAccountByRole(role);}
 

@@ -5,12 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BookingOrderRepository extends JpaRepository<BookingOrder, Integer> {
 
+    @Query("SELECT t FROM BookingOrder t WHERE t.id = ?1")
+    BookingOrder findOrderById(Integer id);
     @Query("SELECT t FROM BookingOrder t WHERE t.employee.id = ?1")
     List<BookingOrder> findByEmployeeId(Integer id);
 
@@ -30,21 +34,10 @@ public interface BookingOrderRepository extends JpaRepository<BookingOrder, Inte
     @Query("SELECT t FROM BookingOrder t WHERE t.employee.id = ?1 and t.status = ?2")
     List<BookingOrder> findByEmployeeIdAndStatus(Integer id, String status);
 
-    @Query(value =
-    "SELECT bo.id as id, " +
-            "a.id as user_id, a.fullname as user_name, emp.id as emp_id, emp.fullname as emp_name, " +
-            "bo.status as status, bo.workTime as workTime, bo.timestamp as timestamp, bo.location as location, " +
-            "j.id as job_id, j.name as job_name, bo.description as description " +
-    "FROM BookingOrder bo " +
-            "INNER JOIN bo.account a " +
-            "INNER JOIN bo.orderJobs oj " +
-            "INNER JOIN bo.employeeOrders eo " +
-            "INNER JOIN eo.account emp " +
-            "INNER JOIN oj.job j " +
-    "WHERE (:status IS NULL OR bo.status = :status) " +
-            "AND (:bookingId IS NULL OR bo.id = :bookingId)" +
-            "AND (:userId IS NULL OR a.id = :userId) " +
-            "AND (:employeeId IS NULL OR emp.id = :employeeId)", nativeQuery = false)
+    @Query("SELECT t FROM BookingOrder t WHERE t.status = ?1 and t.renter.id = ?2 and t.employee.id = ?3 and t.id = ?4")
     List<Map<String, Object>> findAllByStatusId(@Param("status") String status, @Param("userId") Integer userId,
                                                 @Param("employeeId") Integer employeeId, @Param("bookingId") Integer bookingId);
+
+    @Query("SELECT t FROM BookingOrder t WHERE t.status = ?1")
+    long countWithStatus(String status);
 }

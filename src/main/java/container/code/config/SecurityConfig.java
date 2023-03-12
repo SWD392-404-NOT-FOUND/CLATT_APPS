@@ -52,10 +52,12 @@ public class SecurityConfig {
 
 
         http
-                .cors().and().csrf().disable()
+                .cors().and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/login/**")
+                    .antMatchers("/swagger-ui/**", "/login/**")
                 .permitAll()
+
 //                .anyRequest()
 //                .authenticated()
                 .and()

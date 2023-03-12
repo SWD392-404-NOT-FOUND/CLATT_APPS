@@ -13,33 +13,33 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Integer> {
-//    @Query("SELECT t FROM Account t")
+    @Query("SELECT t FROM Account t WHERE t.isLocked = FALSE")
     List<Account> findAll();
 
-//    @Query("SELECT t FROM Account t WHERE t.id = ?1")
+    @Query("SELECT t FROM Account t WHERE t.id = ?1 and t.isLocked = FALSE")
     Optional<Account> findById(Integer Id);
 
-//    @Query("SELECT t FROM Account t WHERE t.role = ?1")
+    @Query("SELECT t FROM Account t WHERE t.role = ?1 and t.isLocked = FALSE")
     List<Account> findByRole(String role);
 
-//    Optional<Account> findByEmail(String email);
+    @Query("SELECT t FROM Account t WHERE t.email = ?1 and t.isLocked = FALSE")
     Account findByEmail(String email);
 
     @Query("SELECT t FROM Account t WHERE t.username = ?1 and t.isLocked = FALSE")
     Account findByUsername(String username);
 
-    @Query("SELECT t.email FROM Account t WHERE t.username = ?1")
-    String findEmailByUsername(String username);
-
-    @Query("SELECT t.username FROM Account t WHERE t.email = ?1")
-    String findUsernameByEmail(String email);
-
-    Account findByEmailAndPassword(String Email, String password);
     @Modifying
     @Query("Update Account t SET t.isLocked = TRUE WHERE t.id = ?1")
     void banAccount(Integer id);
 
-    @Query("SELECT t FROM Account t WHERE t.id NOT IN " +
+    @Modifying
+    @Query("Update Account t SET t.isLocked = FALSE WHERE t.id = ?1")
+    void unbanAccount(Integer id);
+
+    @Query("SELECT t FROM Account t WHERE t.isLocked = FALSE and t.id NOT IN " +
             "(SELECT f.id FROM BookingOrder f WHERE YEAR(f.workDate) = YEAR(?1) and MONTH(f.workDate) = MONTH(?1) and DAY(f.workDate) = DAY(?1))")
     List<Account> getAccountFromOrderWithDate(LocalDateTime date);
+
+    @Query("SELECT COUNT(t) FROM Account t WHERE t.role != 'admin' and t.isLocked = FALSE")
+    long countNotAdmin();
 }

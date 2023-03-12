@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
-    List<Account> getAllAccount();
+    ResponseEntity<ResponseObject> getAllAccount();
 
-    Optional<Account> getAccountById(Integer Id);
+    ResponseEntity<ResponseObject> getAccountById(Integer Id);
 
-    List<Account> getAccountByRole(String role);
+    ResponseEntity<ResponseObject> getAccountByRole(String role);
 
-    Account getAccountByEmail(String email);
+    ResponseEntity<ResponseObject> getAccountByEmail(String email);
 
     ResponseEntity<ResponseObject> banAccount(Integer id);
 

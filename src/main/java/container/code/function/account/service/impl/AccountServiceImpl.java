@@ -26,19 +26,41 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public List<Account> getAllAccount() {
-        return accountRepository.findAll();
+    public ResponseEntity<ResponseObject> getAllAccount() {
+        try {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        }
     }
     @Override
-    public Optional<Account> getAccountById(Integer Id) {
-        return accountRepository.findById(Id);
+    public ResponseEntity<ResponseObject> getAccountById(Integer Id) {
+        try {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        }
     }
 
     @Override
-    public List<Account> getAccountByRole(String role) { return accountRepository.findByRole(role);}
+    public ResponseEntity<ResponseObject> getAccountByRole(String role) {
+        try {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        }
+    }
 
     @Override
-    public Account getAccountByEmail(String email) { return accountRepository.findByEmail(email);}
+    public ResponseEntity<ResponseObject> getAccountByEmail(String email) {
+        try {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject(HttpStatus.BAD_REQUEST.toString(), "Something wrong occur!", null));
+        }
+    }
 
     @Override
     public ResponseEntity<ResponseObject> banAccount(Integer id) {

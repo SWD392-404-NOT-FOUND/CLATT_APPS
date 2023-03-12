@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +33,10 @@ public class Feedback {
 
     @OneToOne(mappedBy = "feedback")
     private BookingOrder bookingOrder;
+
+    public Feedback(String detail, Integer rate, LocalDateTime timestamp) {
+        this.detail = detail;
+        this.rate = rate;
+        this.timestamp = timestamp;
+    }
 }

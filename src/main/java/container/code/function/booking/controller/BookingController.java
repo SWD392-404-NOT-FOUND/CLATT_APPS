@@ -1,6 +1,8 @@
 package container.code.function.booking.controller;
 
+import container.code.data.dto.ResponseObject;
 import container.code.data.entity.BookingOrder;
+import container.code.function.booking.api.AddBookingForm;
 import container.code.function.booking.service.BookingService;
 import container.code.function.booking.api.BookingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping("/get-bookings")
+    @GetMapping("/get-bookings")
     public List<BookingResponse> getBooking(@RequestParam(required = false) String status,
                                             @RequestParam(required = false) Integer user_id,
                                             @RequestParam(required = false) Integer employee_id,
@@ -26,18 +28,15 @@ public class BookingController {
         return bookingService.getBookingOrder(status, user_id, employee_id, booking_id);
     }
 
-    @PostMapping("/create-booking")
-    public ResponseEntity<String> createBooking(@RequestParam Integer userId, @RequestParam Integer employeeId,
-                                                @RequestParam Integer jobId, @RequestParam Date timestamp,
-                                                @RequestParam Integer address_id, @RequestParam String status,
-                                                @RequestParam String description, @RequestParam Integer workTime) {
-        try {
-            bookingService.addBookingOrder(userId, employeeId, jobId, timestamp, address_id, status, description, workTime);
-            return new ResponseEntity(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/get-bookings-count")
+    public ResponseEntity<ResponseObject> getBookingCount() {
+        return bookingService.getBookingOrderCount();
     }
+
+//    @PostMapping("/create-booking")
+//    public ResponseEntity<ResponseObject> createBooking(@RequestBody AddBookingForm form) {
+//        return bookingService.createBooking(form);
+//    }
 
     @PutMapping("/update/{booking_id}")
     public ResponseEntity updateBooking(@PathVariable("booking_id") int booking_id,
