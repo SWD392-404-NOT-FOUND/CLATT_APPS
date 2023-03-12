@@ -51,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
                     String accessToken = jwtUtils.createToken(userPrinciple);
                     //String refreshToken = refreshTokenProvider.createRefreshToken(userPrinciple.getEmail()).getToken();
                     String refreshToken = "";
-                    return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), "Login success!", new JwtResponse(accessToken, refreshToken)));
+                    return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), "Login success!", new JwtResponse(accessToken, refreshToken, userPrinciple)));
                 } else ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "Wrong username or password.", null));
             } catch (Exception e) {
                 if (e instanceof DisabledException) {
@@ -83,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
                 String accessToken = jwtUtils.createToken(userPrinciple);
                 //String refreshToken = refreshTokenProvider.createRefreshToken(userPrinciple.getEmail()).getToken();
                 String refreshToken = "";
-                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), "Login success!", new JwtResponse(accessToken, refreshToken)));
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseObject(HttpStatus.ACCEPTED.toString(), "Login success!", new JwtResponse(accessToken, refreshToken, userPrinciple)));
             } else ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseObject(HttpStatus.UNAUTHORIZED.toString(), "Wrong username or password.", null));
         } catch (Exception e) {
             if (e instanceof DisabledException) {
