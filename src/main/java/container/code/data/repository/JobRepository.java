@@ -15,7 +15,8 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 
     @Query(value = "SELECT j " +
             "FROM Job j " +
-            " LEFT JOIN EmployeeJob ej LEFT JOIN Account ac " +
+            "INNER JOIN EmployeeJob ej ON ej.job = j " +
+            "INNER JOIN Account ac ON ej.account = ac " +
             "WHERE ac.id = :emp_id ")
     List<Job> findAllByEmpId(@Param("emp_id") Integer empId);
 }
