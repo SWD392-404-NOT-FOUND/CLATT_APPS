@@ -39,7 +39,7 @@ public class OrderController {
 
     @PutMapping("updateOrderStatus")
     @PreAuthorize("hasAuthority('employee')")
-    public ResponseEntity<ResponseObject> updateOrderStatus (
+    public ResponseEntity<ResponseObject> updateOrderStatus(
             @RequestParam(name = "order_id") Integer id,
             @RequestParam(name = "status") String status) {
         return orderService.updateStatus(id, status);
