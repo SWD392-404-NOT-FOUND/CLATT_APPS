@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
 @RequestMapping(value = "/order")
 public class OrderController {
 
@@ -39,7 +39,7 @@ public class OrderController {
 
     @PutMapping("updateOrderStatus")
     @PreAuthorize("hasAuthority('employee')")
-    public ResponseEntity<ResponseObject> updateOrderStatus (
+    public ResponseEntity<ResponseObject> updateOrderStatus(
             @RequestParam(name = "order_id") Integer id,
             @RequestParam(name = "status") String status) {
         return orderService.updateStatus(id, status);

@@ -1,7 +1,5 @@
 package container.code;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseOptions;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

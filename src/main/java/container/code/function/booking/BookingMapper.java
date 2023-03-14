@@ -3,7 +3,7 @@ package container.code.function.booking;
 import container.code.function.booking.api.BookingResponse;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Component
@@ -18,7 +18,7 @@ public class BookingMapper {
         bookingResponse.setEmpName((String) object.get("emp_name"));
         bookingResponse.setStatus((String) object.get("status"));
         bookingResponse.setWorkTime((Integer) object.get("workTime"));
-        bookingResponse.setTimestamp((Date) object.get("timestamp"));
+        bookingResponse.setTimestamp((LocalDateTime) object.get("timestamp"));
         bookingResponse.setLocation((String) object.get("location"));
         bookingResponse.setJobId((Integer) object.get("job_id"));
         bookingResponse.setJobName((String) object.get("job_name"));

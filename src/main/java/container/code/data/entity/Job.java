@@ -38,6 +38,10 @@ public class Job {
 
     @OneToMany(mappedBy = "job")
     @JsonIgnore
+    private List<EmployeeJob> employeeJobs;
+
+    @OneToMany(mappedBy = "job")
+    @JsonIgnore
     private List<OrderJob> orderJobs;
 
 }

@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class BookingResponse {
     private String empName;
     private String status;
     private Integer workTime;
-    private Date timestamp;
+    private LocalDateTime timestamp;
     private Integer price;
     private String location;
     private Integer jobId;
