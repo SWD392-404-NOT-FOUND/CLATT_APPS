@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://cleaning-house-service.vercel.app", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3030", "https://clatt-api.monoinfinity.net",
+        "https://cleaning-house-service.vercel.app", "http://localhost:8080"}, allowCredentials = "true")
 @RequestMapping(value = "/notification")
 public class NotificationController {
 
@@ -21,9 +22,21 @@ public class NotificationController {
         return notificationService.getNotificationDetail(accountId, notificationId);
     }
 
+    @PostMapping("/read-notification")
+    public ResponseEntity<ResponseObject> isReadNotification(
+            @RequestParam(name = "notification_id") Integer notificationId) {
+        return notificationService.isReadNotification(notificationId);
+    }
+
     @GetMapping("/getAllNotifications")
     public ResponseEntity<ResponseObject> getAllNotifications(
             @RequestParam(name = "account_id") Integer accountId) {
         return notificationService.getAllMyNotificationsById(accountId);
+    }
+
+    @PostMapping("/read-all-notifications")
+    public ResponseEntity<ResponseObject> readAllNotifications(
+            @RequestParam(name = "account_id") Integer accountId) {
+        return notificationService.readAllNotification(accountId);
     }
 }
